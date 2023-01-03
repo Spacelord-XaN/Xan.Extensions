@@ -1,39 +1,45 @@
-﻿namespace Xan.Extensions;
+﻿using System.Security.Cryptography;
+
+namespace Xan.Extensions;
 
 public static class RandomExtensions
 {
-    public static bool NextBool(this Random rand)
-    {
-        ArgumentNullException.ThrowIfNull(rand);
+    public static bool GetBool()
+        => RandomNumberGenerator.GetInt32(2) == 0;
 
-        return rand.NextDouble() > 0.5;
+    public static double GetDouble()
+    {
+        return (((long)GetInt32ByBits(26) << 27) + GetInt32ByBits(27))
+            / (double)(1L << 53);
     }
 
-    public static double NextGaussian(this Random rand, double mean, double stdDev)
+    public static double GetGaussian(double mean, double stdDev)
     {
-        ArgumentNullException.ThrowIfNull(rand);
-
         //  yehaw random stackoverflow code: https://stackoverflow.com/questions/218060/random-gaussian-variables
-        double u1 = 1.0 - rand.NextDouble();
-        double u2 = 1.0 - rand.NextDouble();
+        double u1 = 1.0 - GetDouble();
+        double u2 = 1.0 - GetDouble();
         double randStdNormal = Math.Sqrt(-2.0 * Math.Log(u1)) * Math.Sin(2.0 * Math.PI * u2);
 
         return mean + stdDev * randStdNormal;
     }
 
-    public static T TakeRandom<T>(this Random rand, IReadOnlyList<T> items)
+    public static int GetInt32ByBits(int bits)
+        => RandomNumberGenerator.GetInt32((int)Math.Pow(2, bits));   
+
+    public static int GetPositiveInt32()
+        => RandomNumberGenerator.GetInt32(int.MaxValue);
+
+    public static T GetRandomElement<T>(this IReadOnlyList<T> items)
     {
-        ArgumentNullException.ThrowIfNull(rand);
         ArgumentNullException.ThrowIfNull(items);
 
-        return items[rand.Next(0, items.Count - 1)];
+        return items[RandomNumberGenerator.GetInt32(0, items.Count)];
     }
 
-    public static T TakeRandom<T>(this Random rand, IQueryable<T> iq)
+    public static T GetRandomElement<T>(this IQueryable<T> iq)
     {
-        ArgumentNullException.ThrowIfNull(rand);
         ArgumentNullException.ThrowIfNull(iq);
-        
-        return rand.TakeRandom(iq.ToArray());
+
+        return iq.ToArray().GetRandomElement();
     }
 }
