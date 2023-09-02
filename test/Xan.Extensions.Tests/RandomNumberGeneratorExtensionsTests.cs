@@ -1,16 +1,8 @@
 ﻿namespace Xan.Extensions.Tests;
 
-public class RandomExtensionsTests
+public class RandomNumberGeneratorExtensionsTests
 {
     private const int _iterationCount = 1000 * 1000;
-    private const int _seed = 666;
-    
-    private readonly Random _random;
-
-    public RandomExtensionsTests()
-    {
-        _random = new Random(_seed);
-    }
 
     [Fact]
     public void GetBool()
@@ -19,7 +11,7 @@ public class RandomExtensionsTests
 
         RunTimes(() =>
         {
-            bool result = _random.GetBool();
+            bool result = RandomNumberGeneratorExtensions.GetBool();
             results.Add(result);
         });
 
@@ -32,7 +24,7 @@ public class RandomExtensionsTests
     {
         RunTimes(() =>
         {
-            double result = _random.GetDouble();
+            double result = RandomNumberGeneratorExtensions.GetDouble();
 
             result.Should().BeInRange(0.0, 1.0);
         });
@@ -47,7 +39,7 @@ public class RandomExtensionsTests
 
         RunTimes(() =>
         {
-            int result = _random.GetInt32ByBits(bits);
+            int result = RandomNumberGeneratorExtensions.GetInt32ByBits(bits);
 
             result.Should().BeInRange(expectedMin, expectedMax);
             values.Add(result);
@@ -55,6 +47,17 @@ public class RandomExtensionsTests
 
         values.Should().Contain(expectedMin);
         values.Should().Contain(expectedMax);
+    }
+
+    [Fact]
+    public void GetPositiveInt32()
+    {
+        RunTimes(() =>
+        {
+            int result = RandomNumberGeneratorExtensions.GetPositiveInt32();
+
+            result.Should().BeInRange(0, int.MaxValue);
+        });
     }
 
     private static void RunTimes(Action what)
