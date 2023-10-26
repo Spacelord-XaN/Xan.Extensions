@@ -57,6 +57,20 @@ public class RandomExtensionsTests
         values.Should().Contain(expectedMax);
     }
 
+    [Theory]
+    [AutoData]
+    public void Shuffle(int[] input)
+    {
+        //  Arrange
+        int[] unshuffled = input.Select(x => x).ToArray();
+
+        //  Act
+        _random.Shuffle(input);
+
+        //  Assert
+        input.Should().BeEquivalentTo(unshuffled);
+    }
+
     private static void RunTimes(Action what)
     {
         foreach (int _ in Enumerable.Range(0, _iterationCount))

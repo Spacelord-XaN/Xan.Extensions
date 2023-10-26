@@ -51,4 +51,21 @@ public static class RandomExtensions
 
         return random.GetRandomElement(iq.ToArray());
     }
+
+    public static void Shuffle<T>(this Random random, IList<T> list)
+    {
+        ArgumentNullException.ThrowIfNull(random);
+        ArgumentNullException.ThrowIfNull(list);
+
+        int count = list.Count;
+        for (int index = count - 1; index > 0; index--)
+        {
+            int newIndex = random.Next(0, index + 1);
+
+            // Swap elements at i and j
+            T temp = list[index];
+            list[index] = list[newIndex];
+            list[newIndex] = temp;
+        }
+    }
 }
