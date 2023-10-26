@@ -68,4 +68,20 @@ public static class RandomExtensions
             list[newIndex] = temp;
         }
     }
+
+    public static IEnumerable<T> TakePercentage<T>(this Random random, IEnumerable<T> items, int minPercentage, int maxPercentage)
+    {
+        ArgumentNullException.ThrowIfNull(random);
+        ArgumentNullException.ThrowIfNull(items);
+        if (minPercentage < 0 || maxPercentage < 0 || minPercentage > maxPercentage)
+        {
+            throw new ArgumentException("Invalid percentage range");
+        }
+
+        int totalCount = items.Count();
+        int countToTake = (int)(totalCount * (minPercentage + random.NextDouble() * (maxPercentage - minPercentage)) / 100);
+
+        return items
+            .Take(countToTake);
+    }
 }

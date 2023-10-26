@@ -71,6 +71,23 @@ public class RandomExtensionsTests
         input.Should().BeEquivalentTo(unshuffled);
     }
 
+    [Fact]
+    public void TakePercentage()
+    {
+        //  Arrange
+        int[] input = Enumerable.Range(0, 100).ToArray();
+
+        //  Act
+        RunTimes(() =>
+        {
+            IEnumerable<int> result = _random.TakePercentage(input, 40, 50);
+
+            //  Assert
+            result.Should().HaveCountGreaterThanOrEqualTo(40);
+            result.Should().HaveCountLessThanOrEqualTo(50);
+        });
+    }
+
     private static void RunTimes(Action what)
     {
         foreach (int _ in Enumerable.Range(0, _iterationCount))
