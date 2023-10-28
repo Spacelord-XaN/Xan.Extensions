@@ -1,7 +1,15 @@
 ﻿namespace Xan.Extensions.Tests.DateOnlyExtensionsTests;
 
-public class StartOfWeek
+public sealed class StartOfWeek
+    : IDisposable
 {
+    private readonly AustrianCultureFixture _austrianCulture = new ();
+
+    public void Dispose()
+    {
+        _austrianCulture.Dispose();
+    }
+
     [Fact]
     public void ReturnsDateTimeWithCorrectTime()
     {
