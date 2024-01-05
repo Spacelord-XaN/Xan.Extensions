@@ -2,7 +2,7 @@
 
 namespace Xan.Extensions.Tasks;
 
-public sealed class BackgroundTaskQueue
+public class BackgroundTaskQueue
     : IBackgroundTaskQueue
     , IDisposable
 {
