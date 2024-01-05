@@ -3,9 +3,9 @@ using System.Reflection;
 
 namespace Xan.Extensions.Reflection;
 
-public sealed class EnumInfo
+public static class EnumInfo
 {
-    private static readonly Dictionary<Type, List<EnumValueInfo>> _cache = new ();
+    private static readonly Dictionary<Type, List<EnumValueInfo>> _cache = [];
 
     public static IEnumerable<EnumValueInfo> Get<TEnum>()
         where TEnum : struct, Enum
@@ -16,7 +16,7 @@ public sealed class EnumInfo
             return list;
         }
 
-        List<EnumValueInfo> valueInfos = new();
+        List<EnumValueInfo> valueInfos = [];
         foreach (TEnum enumValue in Enum.GetValues<TEnum>())
         {
             string enumValueString = enumValue.ToString();
