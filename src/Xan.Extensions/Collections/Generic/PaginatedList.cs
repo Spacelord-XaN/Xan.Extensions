@@ -5,6 +5,7 @@ namespace Xan.Extensions.Collections.Generic;
 public class PaginatedList<T>
     : ReadOnlyCollection<T>
     , IPaginatedList<T>
+    , IPaginatedList
 {
     public PaginatedList(IPaginatedList<T> other)
         : this(other.ToList(), other.PageIndex, other.PageSize, other.TotalPageCount, other.TotalItemCount)

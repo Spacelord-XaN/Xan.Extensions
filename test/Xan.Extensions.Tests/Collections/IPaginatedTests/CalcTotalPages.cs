@@ -1,6 +1,6 @@
 ﻿using Xan.Extensions.Collections;
 
-namespace Xan.Extensions.Tests.Collections.IPaginatedListTests;
+namespace Xan.Extensions.Tests.Collections.IPaginatedTests;
 
 public class CalcTotalPages
 {
@@ -12,7 +12,7 @@ public class CalcTotalPages
         // Arrange
 
         // Act
-        int totalPages = IPaginatedList.CalcTotalPages(totalItemCount, pageSize);
+        int totalPages = IPaginated.CalcTotalPages(totalItemCount, pageSize);
 
         // Assert
         totalPages.Should().Be(1);
@@ -27,7 +27,7 @@ public class CalcTotalPages
         // Arrange
 
         // Act
-        int totalPages = IPaginatedList.CalcTotalPages(totalItemCount, pageSize);
+        int totalPages = IPaginated.CalcTotalPages(totalItemCount, pageSize);
 
         // Assert
         totalPages.Should().Be(expectedResult);

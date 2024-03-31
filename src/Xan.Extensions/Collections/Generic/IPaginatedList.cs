@@ -2,5 +2,6 @@
 
 public interface IPaginatedList<T>
     : IReadOnlyList<T>
-    , IPaginatedList
-{ }
+    , IPaginated
+{
+}

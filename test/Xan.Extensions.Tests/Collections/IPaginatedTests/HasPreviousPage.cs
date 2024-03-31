@@ -1,6 +1,6 @@
 ﻿using Xan.Extensions.Collections;
 
-namespace Xan.Extensions.Tests.Collections.IPaginatedListTests;
+namespace Xan.Extensions.Tests.Collections.IPaginatedTests;
 
 public class HasPreviousPage
 {
@@ -13,7 +13,7 @@ public class HasPreviousPage
     public void ShouldReturnFalse(int pageIndex)
     {
         //  Arrange
-        IPaginatedList sut = _fixture.Build<PaginatedListMock>()
+        IPaginated sut = _fixture.Build<PaginatedMock>()
             .With(_ => _.PageIndex, pageIndex)
             .Create();
 
@@ -31,7 +31,7 @@ public class HasPreviousPage
     public void ShouldReturnTrue(int pageIndex)
     {
         //  Arrange
-        IPaginatedList sut = _fixture.Build<PaginatedListMock>()
+        IPaginated sut = _fixture.Build<PaginatedMock>()
             .With(_ => _.PageIndex, pageIndex)
             .Create();
 
