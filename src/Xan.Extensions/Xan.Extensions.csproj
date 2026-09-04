@@ -14,7 +14,6 @@
     <RepositoryUrl>https://github.com/Spacelord-XaN/Xan.Extensions</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>.NET</PackageTags>
-    <Version>0.5.2</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
   </PropertyGroup>
